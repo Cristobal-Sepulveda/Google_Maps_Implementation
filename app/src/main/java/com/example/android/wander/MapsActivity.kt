@@ -1,7 +1,15 @@
 package com.example.android.wander
 
+import android.app.Activity
+import android.app.Application
+import android.content.ContentResolver
+import android.content.Context
+import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings.Global.getString
+import android.view.Menu
+import android.view.MenuItem
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -9,10 +17,13 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import java.util.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    private lateinit var mMap: GoogleMap
+    //TODO 1.2
+    /*private lateinit var mMap: GoogleMap*/
+    private lateinit var map: GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,11 +44,88 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      * installed Google Play services and returned to the app.
      */
     override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
+        val title = getString(R.string.dropped_pin)
+        //TODO 1.8: Adding code to change the marker to my place
+        map = googleMap
+        val latitude = -33.49278031380874
+        val longitude = -70.7507601381487
+        val homeLatLng = LatLng(latitude, longitude)
+        val zoomLevel = 15f
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(homeLatLng, zoomLevel))
+        map.addMarker(MarkerOptions().position(homeLatLng))
+        //TODO 1.10: calling the method in TODO 1.9
+        setMapLongClick(map, title)
+        //TODO 1.16: calling the new method to see POI's
+        setPoiClick(map)
 
-        // Add a marker in Sydney and move the camera
+    /*        // Add a marker in Sydney and move the camera
         val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        map.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+        map.moveCamera(CameraUpdateFactory.newLatLng(sydney))*/
+
+    }
+
+    //TODO 1.6: Adding a menu to the ActionBar
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.map_options, menu)
+        return true
+    }
+
+    //TODO 1.7: Adding functionallity to the menu
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        // Change the map type based on the user's selection.
+        R.id.normal_map -> {
+            map.mapType = GoogleMap.MAP_TYPE_NORMAL
+            true
+        }
+        R.id.hybrid_map -> {
+            map.mapType = GoogleMap.MAP_TYPE_HYBRID
+            true
+        }
+        R.id.satellite_map -> {
+            map.mapType = GoogleMap.MAP_TYPE_SATELLITE
+            true
+        }
+        R.id.terrain_map -> {
+            map.mapType = GoogleMap.MAP_TYPE_TERRAIN
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
+    }
+}
+
+//TODO 1.9: adding a method to add marker to the map
+private fun setMapLongClick(map: GoogleMap, title: String) {
+    map.setOnMapLongClickListener { latLng ->
+        //TODO 1.11: snippet added
+        val snippet = String.format(
+                Locale.getDefault(),
+                "Lat: %1$.5f, Long: %2$.5f",
+                latLng.latitude,
+                latLng.longitude
+        )
+
+        map.addMarker(
+                MarkerOptions()
+                        .position(latLng)
+                        //TODO 1.12: adding text
+                        .title(title)
+                        .snippet(snippet)
+        )
+    }
+}
+
+//TODO 1.13: creating a method to set POI's
+private fun setPoiClick(map: GoogleMap) {
+    map.setOnPoiClickListener { poi ->
+        //TODO 1.14: place a market of the POI location
+        val poiMarker = map.addMarker(
+                MarkerOptions()
+                        .position(poi.latLng)
+                        .title(poi.name)
+        )
+        //TODO 1.15: call showInfoWindow to inmediately show the info window
+        poiMarker.showInfoWindow()
     }
 }

@@ -155,6 +155,7 @@ Get an API Key
     4. Create an API key and click Restrict Key to restrict the key's use
        to Android apps. The generated API key should start with AIza.
 
+`//TODO 1.1`
     5. In the google_maps_api.xml file, paste the key into the google_maps_key
        string where it says YOUR_KEY_HERE.
 
@@ -168,6 +169,7 @@ Rename mMap
   GoogleMap. By Kotlin naming conventions you will want to change it
   to be called map instead.
 
+`//TODO 1.2`
     1. In MapsActivity, right click on mMap and click Refactor/Rename...
 
         https://video.udacity-data.com/topher/2019/October/5da77c36_a03-1/a03-1.png
@@ -210,6 +212,7 @@ Add menu for map types
   app bar step, you add an app bar with an options menu that allows
   the user to change the map type.
 
+`//TODO 1.3`
     1. To create a new menu XML file, right-click on your res directory
        and select New > Android Resource File.
 
@@ -217,7 +220,7 @@ Add menu for map types
        type. Click OK.
 
     https://video.udacity-data.com/topher/2019/October/5da77da6_a04-2/a04-2.png
-
+`//TODO 1.4`
     3. In the text tab, replace the code in the new file with the following
        code to create the map options. The "none" map type is omitted, because
        "none" results in the lack of any map at all.
@@ -242,7 +245,7 @@ Add menu for map types
                android:title="@string/terrain_map"
                app:showAsAction="never" />
         </menu>
-
+`//TODO 1.5`
     4. In strings.xml, add resources for the title attributes in order to resolve the errors.
 
         <resources>
@@ -256,6 +259,7 @@ Add menu for map types
            <string name="poi">poi</string>
         </resources>
 
+`//TODO 1.6`
     5. In MapsActivity, override the onCreateOptionsMenu() method and inflate
        the menu from the map_options resource file:
 
@@ -265,6 +269,7 @@ Add menu for map types
            return true
         }
 
+`//TODO 1.7`
     6. To change the map type, use the setMapType() method on the GoogleMap
        object, passing in one of the map-type constants.
        In MapsActivity.kt, override the onOptionsItemSelected() method.
@@ -318,6 +323,7 @@ Reference Documentation
   camera move to your home, zoom to a level you specify and place a marker
   there.
 
+`//TODO 1.8`
     1. In the onMapReady() method, remove the code that places the marker
        in Sydney and moves the camera. This is what your method should
        look like now.
@@ -335,7 +341,7 @@ Reference Documentation
         val latitude = 37.422160
         val longitude = -122.084270
 
-    4. Create a new LatLng object called home. In the LatLng object, use
+    4. Create a new LatLng object called homeLatLng. In the LatLng object, use
        the values you just created.
 
         val homeLatLng = LatLng(latitude, longitude)
@@ -398,7 +404,7 @@ Add markers on long click
   In this step, you add a marker when the user touches and holds a location
   on the map. You will then add an InfoWindow that displays the coordinates
   of the marker when the marker is tapped.
-
+`//TODO 1.9`
     1. Create a method stub in MapsActivity called setMapLongClick() that
        takes a GoogleMap as an argument. Attach a long click listener
        to the map object.
@@ -418,7 +424,7 @@ Add markers on long click
                )
            }
         }
-
+`//TODO 1.10`
     3. At the end of the onMapReady() method, call etMapLongClick(). Pass in map.
 
         override fun onMapReady(googleMap: GoogleMap) {
@@ -441,6 +447,7 @@ Add an info window for the marker:
        title. In your case the snippet displays the latitude and longitude
        of a marker.
 
+`//TODO 1.11`
         private fun setMapLongClick(map: GoogleMap) {
            map.setOnMapLongClickListener { latLng ->
                // A Snippet is Additional text that's displayed below the title.
@@ -457,6 +464,7 @@ Add an info window for the marker:
            }
         }
 
+`//TODO 1.12`
     2. Set the title of the marker to “Dropped Pin” and set the marker’s
        snippet to the snippet you just created.
 
@@ -506,6 +514,7 @@ Add POI listener
   the user clicks on a POI. The click-listener also displays the
   info window that contains the POI name.
 
+`//TODO 1.13`
     1. Create a method stub in MapsActivity called setPoiClick() that takes
        a GoogleMap as an argument. In the setPoiClick() method, set an
        OnPoiClickListener on the passed-in GoogleMap:
@@ -515,13 +524,14 @@ Add POI listener
 
            }
         }
-
+`//TODO 1.14`
     2. In the onPoiClick() method, place a marker at the POI location.
        Set the title to the name of the POI. Save the result to a variable
        called poiMarker.
 
         private fun setPoiClick(map: GoogleMap) {
            map.setOnPoiClickListener { poi ->
+`//TODO 1.14`
                val poiMarker = map.addMarker(
                    MarkerOptions()
                        .position(poi.latLng)
@@ -529,7 +539,7 @@ Add POI listener
                )
            }
         }
-
+`//TODO 1.15`
     3. In setOnPoiClickListener function, call showInfoWindow() on poiMarker
        to immediately show the info window.
 
@@ -547,7 +557,7 @@ Add POI listener
                  poiMarker.showInfoWindow()
              }
           }
-
+`//TODO 1.16`
     4. Call setPoiClick() at the end of onMapReady(). Pass in map.
 
           override fun onMapReady(googleMap: GoogleMap) {
