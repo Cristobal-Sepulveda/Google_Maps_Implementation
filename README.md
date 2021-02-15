@@ -624,15 +624,18 @@ Add the style to your map
 
 https://video.udacity-data.com/topher/2019/October/5da8ed95_a08-2-v2/a08-2-v2.png
 
+`//TODO 1.17`
     2. Create a file in res/raw called map_style.json.
 
     3. Paste the JSON code into the new resource file.
 
+`//TODO 1.18`
     4. Create a TAG class variable above the onCreate() method. This will
        be used for logging purposes.
 
           private val TAG = MapsActivity::class.java.simpleName
 
+`//TODO 1.19`
     5. In MapsActivity.kt, create a setMapStyle() function that takes in a GoogleMap.
 
           To set the JSON style to the map, call setMapStyle() on the GoogleMap
@@ -652,7 +655,7 @@ https://video.udacity-data.com/topher/2019/October/5da8ed95_a08-2-v2/a08-2-v2.pn
                    )
                }
             }
-
+`//TODO 1.20`
     6. If the styling is unsuccessful, print a log that the parsing has failed.
 
             private fun setMapStyle(map: GoogleMap) {
@@ -696,6 +699,7 @@ The full method should look like this:
                }
             }
 
+`//TODO 1.21`
     8. Call the setMapStyle() method in the onMapReady() method passing
        in your GoogleMap object.
 
@@ -726,6 +730,7 @@ Style your marker
   You can personalize your map further by styling the map markers. In this
   step, you can change the default red markers into something more groovy.
 
+`//TODO 1.22`
     1. In the onMapLongClick() method, add the following line of code to
        the MarkerOptions() of the constructor to use the default marker
        but change the color to blue:
@@ -788,9 +793,10 @@ Reference Documentation
 
 https://video.udacity-data.com/topher/2019/October/5da8c987_image17/image17.png
 
+`//TODO 1.23`
     2. In onMapReady(), after the call to move the camera to your
        home’s position, create a GroundOverlayOptions object. Assign the
-       object to a variable called homeOverlay:
+       object to a variable called androidOverlay:
 
             val androidOverlay = GroundOverlayOptions()
 
@@ -801,6 +807,7 @@ https://video.udacity-data.com/topher/2019/October/5da8c987_image17/image17.png
             val androidOverlay = GroundOverlayOptions()
                .image(BitmapDescriptorFactory.fromResource(R.drawable.android))
 
+`//TODO 1.24`
     4. Set the position property for the GroundOverlayOptions object by
        calling the position() method. Create a float for the width in
        meters of the desired overlay. For this example, a width
@@ -809,8 +816,10 @@ https://video.udacity-data.com/topher/2019/October/5da8c987_image17/image17.png
             val overlaySize = 100f
             val androidOverlay = GroundOverlayOptions()
                .image(BitmapDescriptorFactory.fromResource(R.drawable.android))
+`//TODO 1.25`
                .position(homeLatLng, overlaySize)
 
+`//TODO 1.26`
     5. Call addGroundOverlay() on the GoogleMap object. Pass in your
        GroundOverlayOptions object:
 
@@ -848,16 +857,19 @@ Reference Documentation
   In this step, you request location permissions and enable the location
   tracking.
 
+`//TODO 1.27`
     1. In the AndroidManifest.xml file, verify that the FINE_LOCATION
        permission is already present. Android Studio inserted this
        permission when you selected the Google Maps template.
 
               <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+`//TODO 1.28`
     2. In MapsActivity.kt, create a REQUEST_LOCATION_PERMISSION variable.
 
               private val REQUEST_LOCATION_PERMISSION = 1
 
+`//TODO 1.29`
     3. To check if permissions are granted, create a method in the
        MapsActivity.kt called isPermissionGranted(). In this method, check
        if the user has granted the permission.
@@ -867,7 +879,7 @@ Reference Documentation
                    this,
                   Manifest.permission.ACCESS_FINE_LOCATION) === PackageManager.PERMISSION_GRANTED
             }
-
+`//TODO 1.30`
     4. To enable location tracking in your app, create a method in the
        MapsActivity.kt called enableMyLocation() that takes no arguments
        and doesn't return anything.
@@ -886,7 +898,7 @@ Reference Documentation
                    )
                }
             }
-
+`//TODO 1.31`
     5. Call enableMyLocation() from the onMapReady() callback to enable
        the location layer.
 
@@ -895,6 +907,7 @@ Reference Documentation
                enableMyLocation()
             }
 
+`//TODO 1.32`
     6. Override the onRequestPermissionsResult() method. If the requestCode
        is equal to REQUEST_LOCATION_PERMISSION permission is granted, and
        if the grantResults array is non empty with
